@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Email Kampus</title>
+<style>
+:root{
+  --s:1;
+  --green:#006b43;
+  --green-dark:#00613f;
+  --page:#f8f8f8;
+  --text:#101014;
+  --muted:#55565f;
+  --line:#d8d8d8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%}
+body{
+  background:#e8e8e8;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  font-family:"Segoe UI",Arial,sans-serif;
+  color:var(--text);
+  overflow:hidden;
+}
+.phone{
+  width:calc(720px * var(--s));
+  height:calc(1551px * var(--s));
+  background:var(--page);
+  overflow:hidden;
+  position:relative;
+}
+.appbar{
+  width:100%;
+  height:calc(105px * var(--s));
+  background:var(--green-dark);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
+.back-btn{
+  position:absolute;
+  left:calc(31px * var(--s));
+  top:50%;
+  transform:translateY(-50%);
+  width:calc(42px * var(--s));
+  height:calc(52px * var(--s));
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.back-btn::before{
+  content:"";
+  position:absolute;
+  left:calc(13px * var(--s));
+  top:calc(12px * var(--s));
+  width:calc(22px * var(--s));
+  height:calc(22px * var(--s));
+  border-left:calc(5px * var(--s)) solid #fff;
+  border-bottom:calc(5px * var(--s)) solid #fff;
+  transform:rotate(45deg);
+  border-radius:calc(2px * var(--s));
+}
+.appbar-title{
+  font-size:calc(30px * var(--s));
+  line-height:calc(36px * var(--s));
+  font-weight:700;
+  letter-spacing:.1px;
+}
+.content{
+  padding:calc(58px * var(--s)) calc(34px * var(--s)) 0;
+}
+.title{
+  font-size:calc(31px * var(--s));
+  line-height:calc(38px * var(--s));
+  font-weight:700;
+  color:#07070a;
+  margin-bottom:calc(19px * var(--s));
+}
+.desc{
+  width:calc(650px * var(--s));
+  color:#56565e;
+  font-size:calc(21px * var(--s));
+  line-height:calc(31px * var(--s));
+  font-weight:400;
+  margin-bottom:calc(43px * var(--s));
+}
+.input-wrap{
+  width:100%;
+  height:calc(86px * var(--s));
+  border:calc(1.4px * var(--s)) solid #d4d4d4;
+  border-radius:calc(16px * var(--s));
+  background:#fff;
+  display:grid;
+  grid-template-columns:1fr calc(235px * var(--s));
+  overflow:hidden;
+}
+.username-input{
+  border:0;
+  outline:0;
+  background:#fff;
+  padding:0 calc(29px * var(--s));
+  font-size:calc(23px * var(--s));
+  line-height:calc(28px * var(--s));
+  color:#24242a;
+  font-weight:400;
+}
+.username-input::placeholder{
+  color:#8a8a8f;
+  opacity:1;
+}
+.domain-box{
+  background:#efefef;
+  border-left:calc(1px * var(--s)) solid #dedede;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#5c5c61;
+  font-size:calc(20px * var(--s));
+  line-height:calc(26px * var(--s));
+  font-weight:600;
+  white-space:nowrap;
+}
+.create-btn{
+  width:100%;
+  height:calc(86px * var(--s));
+  margin-top:calc(52px * var(--s));
+  border:0;
+  border-radius:calc(14px * var(--s));
+  background:var(--green-dark);
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-size:calc(23px * var(--s));
+  line-height:calc(28px * var(--s));
+  font-weight:700;
+  box-shadow:0 calc(11px * var(--s)) calc(18px * var(--s)) rgba(0,0,0,.22);
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.create-btn:active,
+.back-btn:active{
+  transform:translateY(-50%) scale(.96);
+  opacity:.85;
+}
+.create-btn:active{
+  transform:scale(.98);
+}
+.result-card{
+  display:none;
+  margin-top:calc(32px * var(--s));
+  background:#e8f6e9;
+  border:calc(1px * var(--s)) solid #d3ead7;
+  border-radius:calc(14px * var(--s));
+  padding:calc(22px * var(--s)) calc(24px * var(--s));
+  color:#006b43;
+  font-size:calc(19px * var(--s));
+  line-height:calc(27px * var(--s));
+  font-weight:600;
+}
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:calc(34px * var(--s));
+  transform:translateX(-50%) translateY(calc(20px * var(--s)));
+  min-width:calc(310px * var(--s));
+  max-width:calc(620px * var(--s));
+  padding:calc(15px * var(--s)) calc(22px * var(--s));
+  border-radius:calc(18px * var(--s));
+  background:rgba(0,97,63,.96);
+  color:#fff;
+  text-align:center;
+  font-size:calc(17px * var(--s));
+  line-height:calc(23px * var(--s));
+  font-weight:500;
+  opacity:0;
+  pointer-events:none;
+  transition:.2s ease;
+}
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+@media(max-width:720px){body{background:var(--page)}}
+</style>
+</head>
+<body>
+<main class="phone">
+  <header class="appbar">
+    <button class="back-btn" aria-label="Kembali"></button>
+    <h1 class="appbar-title">Email Kampus</h1>
+  </header>
+
+  <section class="content">
+    <h2 class="title">Buat Email Kampus</h2>
+    <p class="desc">Dapatkan akun email kampus Anda dengan mengisi username yang diinginkan.</p>
+
+    <div class="input-wrap">
+      <input class="username-input" id="username" type="text" placeholder="username" autocomplete="off" />
+      <div class="domain-box">@mail.uinssc.ac.id</div>
+    </div>
+
+    <button class="create-btn" id="createEmail">Buat Email</button>
+    <div class="result-card" id="resultCard"></div>
+  </section>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+function fitPhone(){
+  const scale = Math.min(window.innerWidth / 720, window.innerHeight / 1551, 1);
+  document.documentElement.style.setProperty('--s', scale.toFixed(5));
+}
+fitPhone();
+window.addEventListener('resize', fitPhone);
+
+const backBtn = document.querySelector('.back-btn');
+const input = document.getElementById('username');
+const createBtn = document.getElementById('createEmail');
+const resultCard = document.getElementById('resultCard');
+const toast = document.getElementById('toast');
+const domain = '@mail.uinssc.ac.id';
+
+backBtn.addEventListener('click', () => {
+  if (history.length > 1) history.back();
+  else window.location.href = 'index.html';
+});
+
+function showToast(message){
+  toast.textContent = message;
+  toast.classList.add('show');
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(() => toast.classList.remove('show'), 1600);
+}
+
+function cleanUsername(value){
+  return value
+    .toLowerCase()
+    .replace(/\s+/g, '')
+    .replace(/[^a-z0-9._-]/g, '');
+}
+
+input.addEventListener('input', () => {
+  const cleaned = cleanUsername(input.value);
+  if (input.value !== cleaned) input.value = cleaned;
+});
+
+createBtn.addEventListener('click', () => {
+  const username = cleanUsername(input.value.trim());
+
+  if (!username) {
+    showToast('Username email kampus belum diisi');
+    input.focus();
+    return;
+  }
+
+  const email = username + domain;
+  resultCard.style.display = 'block';
+  resultCard.textContent = 'Email kampus yang diajukan: ' + email;
+  showToast('Pengajuan email kampus berhasil dibuat');
+});
+</script>
+</body>
+</html>

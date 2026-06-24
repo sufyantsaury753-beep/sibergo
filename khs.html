@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Riwayat Nilai</title>
+<style>
+:root{
+  --s:1;
+  --green:#006b43;
+  --green-2:#00765f;
+  --dark:#171719;
+  --muted:#5f5f68;
+  --page:#f5f6f8;
+  --soft:#f1f3f6;
+  --yellow:#fff0d8;
+  --blue:#e5f0fc;
+  --mint:#e8f6e9;
+  --orange-bg:#fff2dc;
+  --orange:#f2a11d;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%}
+body{
+  background:#e8e8e8;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  font-family:"Segoe UI",Arial,sans-serif;
+  color:var(--dark);
+  overflow:hidden;
+}
+.phone{
+  width:calc(720px * var(--s));
+  height:calc(1551px * var(--s));
+  background:var(--page);
+  padding:calc(13px * var(--s)) calc(33px * var(--s)) calc(54px * var(--s));
+  overflow-y:auto;
+  overflow-x:hidden;
+  position:relative;
+}
+.card{
+  background:#fff;
+  border-radius:calc(26px * var(--s));
+  box-shadow:0 calc(8px * var(--s)) calc(24px * var(--s)) rgba(0,0,0,.035);
+}
+.top-card{
+  height:calc(297px * var(--s));
+  padding:calc(34px * var(--s)) calc(35px * var(--s)) calc(28px * var(--s));
+}
+.title-row{display:flex;align-items:flex-start;gap:calc(18px * var(--s))}
+.back-btn{
+  width:calc(36px * var(--s));
+  height:calc(42px * var(--s));
+  border:0;
+  background:transparent;
+  position:relative;
+  flex:0 0 auto;
+  cursor:pointer;
+  margin-top:calc(1px * var(--s));
+}
+.back-btn::before{
+  content:"";
+  position:absolute;
+  left:calc(8px * var(--s));
+  top:calc(7px * var(--s));
+  width:calc(20px * var(--s));
+  height:calc(20px * var(--s));
+  border-left:calc(4px * var(--s)) solid #575963;
+  border-bottom:calc(4px * var(--s)) solid #575963;
+  transform:rotate(45deg);
+  border-radius:calc(2px * var(--s));
+}
+.page-title{
+  font-size:calc(27px * var(--s));
+  line-height:calc(34px * var(--s));
+  font-weight:700;
+  letter-spacing:-.2px;
+}
+.page-subtitle{
+  margin-top:calc(16px * var(--s));
+  color:#585861;
+  font-size:calc(18px * var(--s));
+  line-height:calc(23px * var(--s));
+  letter-spacing:.7px;
+  font-weight:400;
+}
+.stats-grid{
+  margin-top:calc(31px * var(--s));
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:calc(15px * var(--s));
+}
+.stat-box{
+  height:calc(143px * var(--s));
+  border-radius:calc(18px * var(--s));
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+.stat-box.yellow{background:var(--yellow);color:#ffa400}
+.stat-box.blue{background:var(--blue);color:#1976c9}
+.stat-box.green{background:var(--mint);color:#2f9147}
+.stat-icon{
+  width:calc(39px * var(--s));
+  height:calc(39px * var(--s));
+  display:grid;
+  place-items:center;
+  margin-bottom:calc(8px * var(--s));
+}
+.stat-icon svg{width:100%;height:100%}
+.stat-value{
+  font-size:calc(24px * var(--s));
+  line-height:calc(28px * var(--s));
+  font-weight:700;
+}
+.stat-label{
+  margin-top:calc(7px * var(--s));
+  font-size:calc(18px * var(--s));
+  line-height:calc(22px * var(--s));
+  font-weight:400;
+}
+.tabs{
+  margin:calc(35px * var(--s)) calc(-6px * var(--s)) 0;
+  height:calc(77px * var(--s));
+  background:#fff;
+  border-radius:calc(23px * var(--s));
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  box-shadow:0 calc(5px * var(--s)) calc(14px * var(--s)) rgba(0,0,0,.025);
+  overflow:hidden;
+}
+.tab-btn{
+  border:0;
+  background:transparent;
+  color:#55545d;
+  font-size:calc(22px * var(--s));
+  line-height:calc(26px * var(--s));
+  font-weight:500;
+  cursor:pointer;
+}
+.tab-btn.active{
+  background:var(--green);
+  color:#fff;
+  border-radius:calc(23px * var(--s));
+  font-weight:700;
+}
+.selector-card{
+  margin-top:calc(34px * var(--s));
+  height:calc(178px * var(--s));
+  padding:calc(27px * var(--s)) calc(28px * var(--s));
+}
+.selector-label{
+  font-size:calc(23px * var(--s));
+  line-height:calc(29px * var(--s));
+  font-weight:400;
+  margin-bottom:calc(13px * var(--s));
+}
+.select-box{
+  height:calc(94px * var(--s));
+  border-radius:calc(18px * var(--s));
+  background:#f3f4f7;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 calc(21px * var(--s));
+  font-size:calc(23px * var(--s));
+  line-height:calc(29px * var(--s));
+  font-weight:500;
+  cursor:pointer;
+}
+.chevron-down{
+  width:0;height:0;
+  border-left:calc(9px * var(--s)) solid transparent;
+  border-right:calc(9px * var(--s)) solid transparent;
+  border-top:calc(9px * var(--s)) solid #656871;
+  margin-right:calc(11px * var(--s));
+}
+.content-card{
+  margin-top:calc(40px * var(--s));
+  padding:calc(31px * var(--s)) calc(28px * var(--s)) calc(34px * var(--s));
+}
+.section-title{
+  display:flex;
+  align-items:center;
+  gap:calc(11px * var(--s));
+  font-size:calc(23px * var(--s));
+  line-height:calc(30px * var(--s));
+  font-weight:700;
+  margin-bottom:calc(27px * var(--s));
+}
+.section-icon{
+  width:calc(39px * var(--s));
+  height:calc(39px * var(--s));
+  color:#00765f;
+  display:grid;
+  place-items:center;
+}
+.section-icon svg{width:100%;height:100%}
+.khs-summary{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  align-items:center;
+  gap:calc(55px * var(--s));
+  padding:0 calc(45px * var(--s)) calc(21px * var(--s));
+}
+.khs-mini{
+  width:calc(82px * var(--s));
+  height:calc(70px * var(--s));
+  border-radius:calc(13px * var(--s));
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+.khs-mini.green{background:#e9f7ee;color:#2f9147}
+.khs-mini.blue{background:#e6f2fd;color:#1f7dcc}
+.khs-mini.red{background:#fdebee;color:#d44156}
+.khs-mini-value{
+  font-size:calc(20px * var(--s));
+  line-height:calc(23px * var(--s));
+  font-weight:700;
+}
+.khs-mini-label{
+  width:100%;
+  margin-top:calc(4px * var(--s));
+  font-size:calc(16px * var(--s));
+  line-height:calc(20px * var(--s));
+  font-weight:400;
+  text-align:center;
+}
+
+.khs-mini.red{
+  width:calc(100px * var(--s));
+}
+
+.subject-list{
+  display:flex;
+  flex-direction:column;
+  gap:calc(20px * var(--s));
+}
+.subject-item{
+  min-height:calc(155px * var(--s));
+  position:relative;
+  border-radius:calc(16px * var(--s));
+  background:#f7f8fa;
+  padding:calc(24px * var(--s)) calc(150px * var(--s)) calc(20px * var(--s)) calc(21px * var(--s));
+}
+.subject-title{
+  font-size:calc(19px * var(--s));
+  line-height:calc(25px * var(--s));
+  font-weight:600;
+  color:#202023;
+}
+.subject-code,
+.subject-bobot{
+  color:#5d5d65;
+  font-size:calc(16px * var(--s));
+  line-height:calc(22px * var(--s));
+  font-weight:400;
+}
+.subject-code{margin-top:calc(3px * var(--s))}
+.sks-pill,
+.grade-pill{
+  position:absolute;
+  right:calc(20px * var(--s));
+  min-width:calc(81px * var(--s));
+  height:calc(39px * var(--s));
+  border-radius:calc(13px * var(--s));
+  display:grid;
+  place-items:center;
+  font-size:calc(17px * var(--s));
+  line-height:calc(21px * var(--s));
+  font-weight:600;
+}
+.sks-pill{
+  top:calc(19px * var(--s));
+  background:#e7e7e8;
+  color:#5c5c63;
+}
+.subject-item.passed .sks-pill,
+.subject-item.passed .grade-pill{
+  background:#e4f5e8;
+  color:#2f9147;
+}
+.subject-item.orange-grade .sks-pill,
+.subject-item.orange-grade .grade-pill{
+  background:var(--orange-bg);
+  color:var(--orange);
+}
+.grade-pill{
+  top:calc(64px * var(--s));
+  min-width:calc(59px * var(--s));
+  right:calc(18px * var(--s));
+  background:#ececef;
+  color:#5b5b62;
+}
+.mutu{
+  position:absolute;
+  right:calc(20px * var(--s));
+  bottom:calc(21px * var(--s));
+  color:#5d5d65;
+  font-size:calc(16px * var(--s));
+  line-height:calc(21px * var(--s));
+  font-weight:400;
+}
+.hidden{display:none!important}
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:calc(30px * var(--s));
+  transform:translateX(-50%);
+  background:#111;
+  color:#fff;
+  padding:calc(12px * var(--s)) calc(18px * var(--s));
+  border-radius:calc(24px * var(--s));
+  font-size:calc(15px * var(--s));
+  opacity:0;
+  pointer-events:none;
+  transition:.2s ease;
+}
+.toast.show{opacity:.92}
+@media(max-width:720px){body{background:var(--page)}}
+</style>
+</head>
+<body>
+<main class="phone">
+  <section class="top-card card">
+    <div class="title-row">
+      <button class="back-btn" aria-label="Kembali"></button>
+      <div>
+        <h1 class="page-title">Riwayat Nilai</h1>
+        <p class="page-subtitle">SUFYAN TSAURY - NIM: 2530311086</p>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-box yellow">
+        <div class="stat-icon">
+          <svg viewBox="0 0 64 64" fill="none"><path d="M22 14h20v10c0 9-4 15-10 15s-10-6-10-15V14Z" fill="currentColor"/><path d="M22 19h-8v5c0 7 4 12 11 13M42 19h8v5c0 7-4 12-11 13" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M32 39v9M23 53h18" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="stat-value">3.70</div>
+        <div class="stat-label">IPK</div>
+      </div>
+
+      <div class="stat-box blue">
+        <div class="stat-icon">
+          <svg viewBox="0 0 64 64" fill="none"><path d="M13 15c8-4 16-4 24 1v33c-8-5-16-5-24-1V15Z" fill="currentColor"/><path d="M37 16c6-3 12-4 18-2v33c-6-2-12-1-18 2V16Z" fill="currentColor" opacity=".78"/><path d="M19 22h12M19 29h12M43 22h7M43 29h7" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="stat-value">20</div>
+        <div class="stat-label">Total SKS</div>
+      </div>
+
+      <div class="stat-box green">
+        <div class="stat-icon">
+          <svg viewBox="0 0 64 64"><rect x="14" y="32" width="9" height="19" rx="1" fill="currentColor"/><rect x="28" y="19" width="9" height="32" rx="1" fill="currentColor"/><rect x="42" y="9" width="9" height="42" rx="1" fill="currentColor"/></svg>
+        </div>
+        <div class="stat-value">2</div>
+        <div class="stat-label">Semester</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tabs" data-tabs>
+    <button class="tab-btn active" data-target="khs-panel">KHS</button>
+    <button class="tab-btn" data-target="transkrip-panel">Transkrip</button>
+    <button class="tab-btn" data-target="statistik-panel">Statistik</button>
+  </section>
+
+  <section class="selector-card card">
+    <div class="selector-label">Pilih Semester</div>
+    <div class="select-box" data-toast="Pilihan semester dibuka">
+      <span>Semester Genap 2025/2026</span>
+      <span class="chevron-down"></span>
+    </div>
+  </section>
+
+  <section id="khs-panel" class="content-card card tab-panel">
+    <div class="section-title">
+      <span class="section-icon">
+        <svg viewBox="0 0 64 64"><path d="M32 10 6 23l26 13 26-13L32 10Z" fill="currentColor"/><path d="M16 31v12c4 5 10 8 16 8s12-3 16-8V31l-16 8-16-8Z" fill="currentColor" opacity=".78"/></svg>
+      </span>
+      <span>Kartu Hasil Studi</span>
+    </div>
+
+    <div class="khs-summary">
+      <div class="khs-mini green"><div class="khs-mini-value">3.73</div><div class="khs-mini-label">IPS</div></div>
+      <div class="khs-mini blue"><div class="khs-mini-value">20</div><div class="khs-mini-label">SKS</div></div>
+      <div class="khs-mini red"><div class="khs-mini-value">10</div><div class="khs-mini-label">Mata Kuliah</div></div>
+    </div>
+
+    <div class="subject-list">
+      <article class="subject-item passed">
+        <div class="subject-title">Pendidikan Kewarganegaraan</div>
+        <div class="subject-code">NAS62302</div>
+        <div class="subject-bobot">Bobot: 4.00</div>
+        <span class="sks-pill">2 SKS</span>
+        <span class="grade-pill">A</span>
+        <span class="mutu">Mutu: 8.00</span>
+      </article>
+
+      <article class="subject-item passed">
+        <div class="subject-title">Bahasa Indonesia</div>
+        <div class="subject-code">NAS62303</div>
+        <div class="subject-bobot">Bobot: 3.50</div>
+        <span class="sks-pill">2 SKS</span>
+        <span class="grade-pill">A-</span>
+        <span class="mutu">Mutu: 7.00</span>
+      </article>
+
+      <article class="subject-item passed">
+        <div class="subject-title">Bahasa Inggris</div>
+        <div class="subject-code">SNJ623003</div>
+        <div class="subject-bobot">Bobot: 3.50</div>
+        <span class="sks-pill">3 SKS</span>
+        <span class="grade-pill">A-</span>
+        <span class="mutu">Mutu: 10.50</span>
+      </article>
+
+      <article class="subject-item passed">
+        <div class="subject-title">Metodologi Studi Islam</div>
+        <div class="subject-code">SNJ62301</div>
+        <div class="subject-bobot">Bobot: 3.50</div>
+        <span class="sks-pill">3 SKS</span>
+        <span class="grade-pill">A-</span>
+        <span class="mutu">Mutu: 10.50</span>
+      </article>
+
+      <article class="subject-item orange-grade">
+        <div class="subject-title">Program Pengembangan Tilawatil Qur'an (PPTQ)</div>
+        <div class="subject-code">SNJ90003</div>
+        <div class="subject-bobot">Bobot: 3.50</div>
+        <span class="sks-pill">0 SKS</span>
+        <span class="grade-pill">B</span>
+        <span class="mutu">Mutu: 0.00</span>
+      </article>
+
+      <article class="subject-item passed">
+        <div class="subject-title">Ushul Fiqh</div>
+        <div class="subject-code">SYH62305</div>
+        <div class="subject-bobot">Bobot: 4.00</div>
+        <span class="sks-pill">3 SKS</span>
+        <span class="grade-pill">A</span>
+        <span class="mutu">Mutu: 12.00</span>
+      </article>
+
+      <article class="subject-item passed">
+        <div class="subject-title">Teologi dan Etika Islam</div>
+        <div class="subject-code">SYH62303</div>
+        <div class="subject-bobot">Bobot: 3.50</div>
+        <span class="sks-pill">3 SKS</span>
+        <span class="grade-pill">A-</span>
+        <span class="mutu">Mutu: 10.50</span>
+      </article>
+
+      <article class="subject-item passed">
+        <div class="subject-title">Pengantar Hukum Indonesia</div>
+        <div class="subject-code">HKI62301</div>
+        <div class="subject-bobot">Bobot: 4.00</div>
+        <span class="sks-pill">2 SKS</span>
+        <span class="grade-pill">A</span>
+        <span class="mutu">Mutu: 8.00</span>
+      </article>
+
+      <article class="subject-item passed">
+        <div class="subject-title">Fiqh Peradilan dan Hukum Acra Islam</div>
+        <div class="subject-code">HKI62323</div>
+        <div class="subject-bobot">Bobot: 4.00</div>
+        <span class="sks-pill">2 SKS</span>
+        <span class="grade-pill">A</span>
+        <span class="mutu">Mutu: 8.00</span>
+      </article>
+
+      <article class="subject-item passed">
+        <div class="subject-title">Kitab Kuning</div>
+        <div class="subject-code">SNJ62301</div>
+        <div class="subject-bobot">Bobot: 3.50</div>
+        <span class="sks-pill">0 SKS</span>
+        <span class="grade-pill">A-</span>
+        <span class="mutu">Mutu: 0.00</span>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="transkrip-panel" class="content-card card tab-panel hidden">
+    <div class="section-title">
+      <span class="section-icon"><svg viewBox="0 0 64 64" fill="none"><path d="M13 15c8-4 16-4 24 1v33c-8-5-16-5-24-1V15Z" fill="currentColor"/><path d="M37 16c6-3 12-4 18-2v33c-6-2-12-1-18 2V16Z" fill="currentColor" opacity=".78"/></svg></span>
+      <span>Transkrip Nilai</span>
+    </div>
+    <div class="subject-list">
+      <article class="subject-item passed"><div class="subject-title">Semester Ganjil 2025/2026</div><div class="subject-code">18 SKS · IPS 3.72</div><span class="sks-pill">3.72</span></article>
+      <article class="subject-item passed"><div class="subject-title">Semester Genap 2025/2026</div><div class="subject-code">20 SKS · IPS 0.00</div><span class="sks-pill">20 SKS</span></article>
+    </div>
+  </section>
+
+  <section id="statistik-panel" class="content-card card tab-panel hidden">
+    <div class="section-title">
+      <span class="section-icon"><svg viewBox="0 0 64 64"><rect x="14" y="32" width="9" height="19" rx="1" fill="currentColor"/><rect x="28" y="19" width="9" height="32" rx="1" fill="currentColor"/><rect x="42" y="9" width="9" height="42" rx="1" fill="currentColor"/></svg></span>
+      <span>Statistik Akademik</span>
+    </div>
+    <div class="subject-list">
+      <article class="subject-item passed"><div class="subject-title">IPK Kumulatif</div><div class="subject-code">Perkembangan sampai semester 2</div><span class="sks-pill">3.66</span></article>
+      <article class="subject-item passed"><div class="subject-title">Total SKS Tempuh</div><div class="subject-code">Akumulasi seluruh semester</div><span class="sks-pill">20</span></article>
+    </div>
+  </section>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+function fitPhone(){
+  const scale = Math.min(window.innerWidth / 720, window.innerHeight / 1551, 1);
+  document.documentElement.style.setProperty('--s', scale.toFixed(5));
+}
+fitPhone();
+window.addEventListener('resize', fitPhone);
+
+document.querySelector('.back-btn').addEventListener('click', () => {
+  if (history.length > 1) history.back();
+  else window.location.href = 'index.html';
+});
+
+document.querySelectorAll('.tab-btn').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach((item) => item.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach((panel) => panel.classList.add('hidden'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.target).classList.remove('hidden');
+  });
+});
+
+const toast = document.getElementById('toast');
+document.querySelectorAll('[data-toast]').forEach((item) => {
+  item.addEventListener('click', () => {
+    toast.textContent = item.dataset.toast;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 1300);
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Informasi Keuangan</title>
+<style>
+:root{
+  --s:1;
+  --green:#007246;
+  --green-dark:#006b43;
+  --orange:#f67a00;
+  --page:#f5f6f8;
+  --text:#1b1b1f;
+  --muted:#6d6e78;
+  --soft:#f3f4f7;
+  --blue:#1d82d2;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%}
+body{
+  background:#e8e8e8;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  font-family:"Segoe UI",Arial,sans-serif;
+  color:var(--text);
+  overflow:hidden;
+}
+.phone{
+  width:calc(720px * var(--s));
+  height:calc(1551px * var(--s));
+  background:var(--page);
+  padding:0 calc(28px * var(--s)) calc(60px * var(--s));
+  overflow-y:auto;
+  overflow-x:hidden;
+  position:relative;
+}
+.card{
+  background:#fff;
+  border-radius:calc(25px * var(--s));
+  box-shadow:0 calc(8px * var(--s)) calc(22px * var(--s)) rgba(0,0,0,.04);
+}
+.header-card{
+  height:calc(113px * var(--s));
+  display:flex;
+  align-items:center;
+  gap:calc(16px * var(--s));
+  padding:0 calc(34px * var(--s));
+  margin-bottom:calc(34px * var(--s));
+}
+.back-btn{
+  width:calc(36px * var(--s));
+  height:calc(46px * var(--s));
+  border:0;
+  background:transparent;
+  position:relative;
+  flex:0 0 auto;
+  cursor:pointer;
+}
+.back-btn::before{
+  content:"";
+  position:absolute;
+  left:calc(8px * var(--s));
+  top:calc(12px * var(--s));
+  width:calc(19px * var(--s));
+  height:calc(19px * var(--s));
+  border-left:calc(4px * var(--s)) solid #a6a8ae;
+  border-bottom:calc(4px * var(--s)) solid #a6a8ae;
+  transform:rotate(45deg);
+  border-radius:calc(2px * var(--s));
+}
+.page-title{
+  font-size:calc(24px * var(--s));
+  line-height:calc(30px * var(--s));
+  font-weight:650;
+  letter-spacing:-.1px;
+}
+.page-subtitle{
+  margin-top:calc(4px * var(--s));
+  font-size:calc(16px * var(--s));
+  line-height:calc(22px * var(--s));
+  font-weight:400;
+  color:#9b9ba2;
+  letter-spacing:.2px;
+}
+.finance-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:calc(20px * var(--s));
+  margin-bottom:calc(27px * var(--s));
+}
+.finance-box{
+  height:calc(216px * var(--s));
+  border-radius:calc(18px * var(--s));
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.finance-box.green{background:#348f3b}
+.finance-box.orange{background:var(--orange)}
+.finance-icon{
+  width:calc(52px * var(--s));
+  height:calc(52px * var(--s));
+  margin-bottom:calc(23px * var(--s));
+}
+.finance-icon svg{width:100%;height:100%}
+.finance-value{
+  font-size:calc(25px * var(--s));
+  line-height:calc(31px * var(--s));
+  font-weight:700;
+  letter-spacing:.4px;
+}
+.finance-label{
+  margin-top:calc(16px * var(--s));
+  font-size:calc(21px * var(--s));
+  line-height:calc(26px * var(--s));
+  font-weight:400;
+  color:rgba(255,255,255,.92);
+}
+.tabs{
+  height:calc(70px * var(--s));
+  border-radius:calc(18px * var(--s));
+  background:#f1f1f2;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  margin-bottom:calc(28px * var(--s));
+  box-shadow:0 calc(4px * var(--s)) calc(12px * var(--s)) rgba(0,0,0,.02);
+}
+.tab-btn{
+  border:0;
+  background:transparent;
+  color:#77757d;
+  font-size:calc(22px * var(--s));
+  font-weight:400;
+  cursor:pointer;
+  border-radius:calc(18px * var(--s));
+}
+.tab-btn.active{
+  background:#fff;
+  color:#16161a;
+  font-weight:650;
+  box-shadow:0 calc(4px * var(--s)) calc(12px * var(--s)) rgba(0,0,0,.08);
+}
+.bill-card{
+  padding:calc(28px * var(--s));
+  border:calc(1px * var(--s)) solid #ececef;
+  border-radius:calc(17px * var(--s));
+}
+.section-title{
+  display:flex;
+  align-items:center;
+  gap:calc(14px * var(--s));
+  font-size:calc(24px * var(--s));
+  line-height:calc(30px * var(--s));
+  font-weight:650;
+  margin-bottom:calc(28px * var(--s));
+}
+.title-icon{
+  width:calc(34px * var(--s));
+  height:calc(34px * var(--s));
+  border-radius:calc(6px * var(--s));
+  background:#c8ebcd;
+  color:#348f3b;
+  display:grid;
+  place-items:center;
+  flex:0 0 auto;
+}
+.title-icon svg{width:75%;height:75%}
+.notice{
+  min-height:calc(94px * var(--s));
+  border-radius:calc(16px * var(--s));
+  background:#c9edcd;
+  display:flex;
+  align-items:center;
+  gap:calc(21px * var(--s));
+  padding:0 calc(28px * var(--s));
+  color:#43904b;
+  font-size:calc(20px * var(--s));
+  line-height:calc(28px * var(--s));
+  font-weight:400;
+  margin-bottom:calc(31px * var(--s));
+}
+.notice-icon{
+  width:calc(35px * var(--s));
+  height:calc(35px * var(--s));
+  flex:0 0 auto;
+}
+.notice-icon svg{width:100%;height:100%}
+.payment-title{
+  font-size:calc(24px * var(--s));
+  line-height:calc(30px * var(--s));
+  font-weight:650;
+  margin-bottom:calc(22px * var(--s));
+}
+.payment-row{
+  min-height:calc(126px * var(--s));
+  border:calc(1px * var(--s)) solid #ececef;
+  border-radius:calc(16px * var(--s));
+  display:grid;
+  grid-template-columns:calc(88px * var(--s)) 1fr calc(36px * var(--s));
+  align-items:center;
+  gap:calc(18px * var(--s));
+  padding:0 calc(24px * var(--s)) 0 calc(28px * var(--s));
+  background:#fff;
+  cursor:pointer;
+}
+.payment-icon{
+  width:calc(68px * var(--s));
+  height:calc(68px * var(--s));
+  border-radius:calc(13px * var(--s));
+  background:#e3f1ff;
+  color:#2380c4;
+  display:grid;
+  place-items:center;
+}
+.payment-icon svg{width:55%;height:55%}
+.payment-name{
+  font-size:calc(22px * var(--s));
+  line-height:calc(28px * var(--s));
+  font-weight:650;
+  margin-bottom:calc(8px * var(--s));
+}
+.payment-sub{
+  font-size:calc(19px * var(--s));
+  line-height:calc(24px * var(--s));
+  color:#77767e;
+  font-weight:400;
+}
+.chevron{
+  width:calc(17px * var(--s));
+  height:calc(17px * var(--s));
+  border-top:calc(3px * var(--s)) solid #c0c1c5;
+  border-right:calc(3px * var(--s)) solid #c0c1c5;
+  transform:rotate(45deg);
+  justify-self:center;
+}
+.history-card{
+  padding:calc(28px * var(--s));
+  border:calc(1px * var(--s)) solid #ececef;
+  border-radius:calc(17px * var(--s));
+}
+.history-item{
+  min-height:calc(92px * var(--s));
+  border-radius:calc(14px * var(--s));
+  background:#f7f8fa;
+  padding:calc(18px * var(--s)) calc(20px * var(--s));
+  display:flex;
+  justify-content:space-between;
+  gap:calc(20px * var(--s));
+  align-items:center;
+  margin-bottom:calc(16px * var(--s));
+}
+.history-item:last-child{margin-bottom:0}
+.history-name{font-size:calc(19px * var(--s));font-weight:600;line-height:calc(25px * var(--s))}
+.history-date{font-size:calc(16px * var(--s));color:#76767e;margin-top:calc(4px * var(--s))}
+.history-amount{font-size:calc(18px * var(--s));font-weight:700;color:#348f3b;white-space:nowrap}
+.hidden{display:none!important}
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:calc(28px * var(--s));
+  transform:translateX(-50%) translateY(calc(16px * var(--s)));
+  background:rgba(0,107,67,.96);
+  color:#fff;
+  padding:calc(13px * var(--s)) calc(18px * var(--s));
+  border-radius:calc(18px * var(--s));
+  font-size:calc(15px * var(--s));
+  opacity:0;
+  pointer-events:none;
+  transition:.2s ease;
+  z-index:20;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:720px){body{background:var(--page)}}
+</style>
+</head>
+<body>
+<main class="phone">
+  <section class="header-card card">
+    <button class="back-btn" aria-label="Kembali"></button>
+    <div>
+      <h1 class="page-title">Informasi Keuangan</h1>
+      <p class="page-subtitle">SUFYAN TSAURY · 2530311086</p>
+    </div>
+  </section>
+
+  <section class="finance-grid">
+    <div class="finance-box green">
+      <div class="finance-icon">
+        <svg viewBox="0 0 64 64" fill="none">
+          <circle cx="32" cy="32" r="24" stroke="white" stroke-width="5"/>
+          <path d="M20 32.5 28.5 41 45 23" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="finance-value">Rp. 4.800.000</div>
+      <div class="finance-label">Total Dibayar</div>
+    </div>
+
+    <div class="finance-box orange">
+      <div class="finance-icon">
+        <svg viewBox="0 0 64 64" fill="none">
+          <circle cx="32" cy="32" r="24" stroke="white" stroke-width="5"/>
+          <path d="M32 18v15l10 7" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="finance-value">Rp. 0</div>
+      <div class="finance-label">Tagihan Aktif</div>
+    </div>
+  </section>
+
+  <section class="tabs">
+    <button class="tab-btn active" data-target="tagihan-panel">Tagihan</button>
+    <button class="tab-btn" data-target="riwayat-panel">Riwayat</button>
+  </section>
+
+  <section id="tagihan-panel" class="bill-card card tab-panel">
+    <div class="section-title">
+      <span class="title-icon">
+        <svg viewBox="0 0 64 64" fill="none">
+          <rect x="12" y="13" width="40" height="38" rx="5" stroke="currentColor" stroke-width="5"/>
+          <path d="M23 25h17M23 34h11" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+          <path d="M41 41l4 4 9-11" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span>Tidak Ada Tagihan</span>
+    </div>
+
+    <div class="notice">
+      <span class="notice-icon">
+        <svg viewBox="0 0 64 64" fill="none">
+          <circle cx="32" cy="32" r="24" stroke="currentColor" stroke-width="5"/>
+          <path d="M20 32.5 28.5 41 45 23" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span>Tidak ada tagihan yang harus dibayarkan saat ini.</span>
+    </div>
+
+    <div class="payment-title">Metode Pembayaran</div>
+
+    <div class="payment-row" data-toast="Virtual Account dipilih">
+      <div class="payment-icon">
+        <svg viewBox="0 0 64 64" fill="none">
+          <rect x="13" y="18" width="38" height="28" rx="3" stroke="currentColor" stroke-width="5"/>
+          <path d="M13 27h38M20 38h16" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <div class="payment-name">Virtual Account</div>
+        <div class="payment-sub">BRI, BSI, BTN Syariah</div>
+      </div>
+      <span class="chevron"></span>
+    </div>
+  </section>
+
+  <section id="riwayat-panel" class="history-card card tab-panel hidden">
+    <div class="section-title">
+      <span class="title-icon">
+        <svg viewBox="0 0 64 64" fill="none">
+          <path d="M18 12h28v40H18V12Z" stroke="currentColor" stroke-width="5"/>
+          <path d="M24 24h16M24 34h16M24 44h10" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span>Riwayat Pembayaran</span>
+    </div>
+
+    <div class="history-item">
+      <div>
+        <div class="history-name">UKT Semester Genap 2025/2026</div>
+        <div class="history-date">Lunas · Virtual Account</div>
+      </div>
+      <div class="history-amount">Rp. 2.400.000</div>
+    </div>
+
+    <div class="history-item">
+      <div>
+        <div class="history-name">UKT Semester Ganjil 2025/2026</div>
+        <div class="history-date">Lunas · Virtual Account</div>
+      </div>
+      <div class="history-amount">Rp. 2.400.000</div>
+    </div>
+  </section>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+function fitPhone(){
+  const scale = Math.min(window.innerWidth / 720, window.innerHeight / 1551, 1);
+  document.documentElement.style.setProperty('--s', scale.toFixed(5));
+}
+fitPhone();
+window.addEventListener('resize', fitPhone);
+
+document.querySelector('.back-btn').addEventListener('click', () => {
+  if (history.length > 1) history.back();
+  else window.location.href = 'index.html';
+});
+
+document.querySelectorAll('.tab-btn').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach((item) => item.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach((panel) => panel.classList.add('hidden'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.target).classList.remove('hidden');
+  });
+});
+
+const toast = document.getElementById('toast');
+document.querySelectorAll('[data-toast]').forEach((item) => {
+  item.addEventListener('click', () => {
+    toast.textContent = item.dataset.toast;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 1300);
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profil Saya</title>
+<style>
+:root{
+  --s:1;
+  --green:#006b43;
+  --gold:#d2a12a;
+  --orange:#ff9800;
+  --page:#f4f5f7;
+  --card:#fff;
+  --text:#151515;
+  --muted:#666873;
+  --icon:#56545f;
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:"Segoe UI",Arial,sans-serif}
+html,body{width:100%;height:100%}
+body{background:#e7e8ec;display:flex;justify-content:center;color:var(--text);overflow:hidden}
+.phone{
+  width:calc(720px * var(--s));
+  height:calc(1551px * var(--s));
+  background:var(--page);
+  position:relative;
+  overflow-y:auto;
+  overflow-x:hidden;
+  padding:calc(54px * var(--s)) calc(34px * var(--s)) calc(190px * var(--s));
+}
+.card{
+  background:var(--card);
+  border-radius:calc(24px * var(--s));
+  box-shadow:0 calc(10px * var(--s)) calc(28px * var(--s)) rgba(0,0,0,.06);
+}
+.profile-hero{
+  height:calc(209px * var(--s));
+  background:var(--green);
+  border-radius:calc(22px * var(--s));
+  display:grid;
+  grid-template-columns:calc(170px * var(--s)) 1fr;
+  align-items:center;
+  padding:0 calc(34px * var(--s));
+  margin-bottom:calc(34px * var(--s));
+}
+.avatar{
+  width:calc(136px * var(--s));
+  height:calc(136px * var(--s));
+  border-radius:50%;
+  background:#fff;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+}
+.avatar svg{width:calc(98px * var(--s));height:calc(98px * var(--s))}
+.profile-name{
+  color:#fff;
+  font-size:calc(31px * var(--s));
+  line-height:calc(38px * var(--s));
+  font-weight:700;
+  letter-spacing:.2px;
+  margin-bottom:calc(13px * var(--s));
+}
+.profile-nim{
+  color:rgba(255,255,255,.82);
+  font-size:calc(21px * var(--s));
+  line-height:calc(28px * var(--s));
+  font-weight:400;
+  margin-bottom:calc(20px * var(--s));
+}
+.active-badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:calc(80px * var(--s));
+  height:calc(47px * var(--s));
+  border-radius:calc(24px * var(--s));
+  background:var(--orange);
+  color:#fff;
+  font-size:calc(18px * var(--s));
+  line-height:calc(22px * var(--s));
+  font-weight:600;
+}
+.info-card{
+  padding:calc(40px * var(--s)) calc(35px * var(--s)) calc(39px * var(--s));
+  margin-bottom:calc(33px * var(--s));
+}
+.info-card h2,
+.advisor-card h2,
+.other-card h2{
+  font-size:calc(27px * var(--s));
+  line-height:calc(34px * var(--s));
+  font-weight:700;
+  letter-spacing:-.2px;
+  margin-bottom:calc(34px * var(--s));
+}
+.info-row-profile{
+  display:grid;
+  grid-template-columns:calc(58px * var(--s)) 1fr;
+  column-gap:calc(7px * var(--s));
+  margin-bottom:calc(29px * var(--s));
+}
+.info-row-profile:last-child{margin-bottom:0}
+.info-icon{
+  width:calc(31px * var(--s));
+  height:calc(31px * var(--s));
+  color:var(--icon);
+  display:grid;
+  place-items:center;
+  margin-top:calc(3px * var(--s));
+}
+.info-icon svg{width:100%;height:100%}
+.info-label{
+  color:#696a74;
+  font-size:calc(19px * var(--s));
+  line-height:calc(25px * var(--s));
+  font-weight:400;
+  margin-bottom:calc(5px * var(--s));
+}
+.info-value{
+  color:#111;
+  font-size:calc(21px * var(--s));
+  line-height:calc(29px * var(--s));
+  font-weight:600;
+}
+.advisor-card{
+  padding:calc(39px * var(--s)) calc(35px * var(--s));
+  margin-bottom:calc(33px * var(--s));
+}
+.advisor-card h2{margin-bottom:calc(39px * var(--s))}
+.advisor-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:calc(18px * var(--s));
+}
+.advisor-person{
+  display:flex;
+  align-items:center;
+  gap:calc(37px * var(--s));
+  font-size:calc(21px * var(--s));
+  line-height:calc(28px * var(--s));
+  font-weight:600;
+}
+.chat-btn{
+  width:calc(121px * var(--s));
+  height:calc(67px * var(--s));
+  border:0;
+  border-radius:calc(35px * var(--s));
+  background:var(--green);
+  color:#fff;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:calc(12px * var(--s));
+  font-size:calc(17px * var(--s));
+  font-weight:500;
+  cursor:pointer;
+  box-shadow:0 calc(5px * var(--s)) calc(10px * var(--s)) rgba(0,80,50,.26);
+}
+.chat-btn svg{width:calc(25px * var(--s));height:calc(25px * var(--s))}
+.other-card{
+  padding:calc(39px * var(--s)) calc(35px * var(--s)) calc(42px * var(--s));
+  margin-bottom:calc(34px * var(--s));
+}
+.other-card h2{margin-bottom:calc(44px * var(--s))}
+.option-row{
+  display:grid;
+  grid-template-columns:calc(58px * var(--s)) 1fr auto;
+  gap:calc(7px * var(--s));
+  align-items:center;
+  min-height:calc(62px * var(--s));
+  margin-bottom:calc(39px * var(--s));
+}
+.option-row:last-child{margin-bottom:0}
+.option-title{
+  color:#565762;
+  font-size:calc(21px * var(--s));
+  line-height:calc(28px * var(--s));
+  font-weight:600;
+}
+.option-desc{
+  color:#8a8b93;
+  font-size:calc(18px * var(--s));
+  line-height:calc(28px * var(--s));
+  font-weight:400;
+  margin-top:calc(23px * var(--s));
+  max-width:calc(380px * var(--s));
+}
+.test-sound{
+  display:inline-flex;
+  align-items:center;
+  gap:calc(11px * var(--s));
+  border:0;
+  background:transparent;
+  color:var(--green);
+  font-size:calc(18px * var(--s));
+  line-height:calc(24px * var(--s));
+  font-weight:700;
+  margin-top:calc(17px * var(--s));
+  cursor:pointer;
+}
+.test-sound svg{width:calc(24px * var(--s));height:calc(24px * var(--s))}
+.toggle{
+  width:calc(88px * var(--s));
+  height:calc(54px * var(--s));
+  border:0;
+  border-radius:calc(999px * var(--s));
+  background:#c3ddd3;
+  padding:calc(5px * var(--s));
+  cursor:pointer;
+}
+.toggle span{
+  display:block;
+  width:calc(44px * var(--s));
+  height:calc(44px * var(--s));
+  border-radius:50%;
+  background:#007a55;
+  margin-left:auto;
+  transition:.2s ease;
+}
+.toggle.off span{margin-left:0;background:#777}
+.arrow-next{
+  width:calc(20px * var(--s));
+  height:calc(20px * var(--s));
+  border-top:calc(4px * var(--s)) solid #565a63;
+  border-right:calc(4px * var(--s)) solid #565a63;
+  transform:rotate(45deg);
+  margin-right:calc(6px * var(--s));
+}
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:calc(720px * var(--s));
+  height:calc(144px * var(--s));
+  background:#f4eefc;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  align-items:center;
+  z-index:99;
+  box-shadow:0 calc(-5px * var(--s)) calc(18px * var(--s)) rgba(0,0,0,.05);
+}
+.nav-item{
+  text-align:center;
+  text-decoration:none;
+  color:#4d4d57;
+  font-size:calc(16px * var(--s));
+  line-height:calc(21px * var(--s));
+  font-weight:600;
+  -webkit-tap-highlight-color:transparent;
+}
+.nav-item.active{color:var(--green)}
+.bottom-icon{
+  width:calc(40px * var(--s));
+  height:calc(40px * var(--s));
+  display:grid;
+  place-items:center;
+  margin:0 auto calc(8px * var(--s));
+}
+.bottom-icon svg{width:100%;height:100%}
+.nav-item.active .bottom-icon svg path,
+.nav-item.active .bottom-icon svg circle{
+  fill:var(--gold);
+  stroke:var(--gold);
+}
+.scan-link{align-self:start;margin-top:calc(-33px * var(--s))}
+.center-scan{
+  width:calc(87px * var(--s));
+  height:calc(87px * var(--s));
+  background:#fafffb;
+  border-radius:50%;
+  margin:0 auto;
+  display:grid;
+  place-items:center;
+  box-shadow:0 calc(10px * var(--s)) calc(22px * var(--s)) rgba(0,0,0,.14);
+}
+.center-scan svg{width:calc(45px * var(--s));height:calc(45px * var(--s))}
+.android-line{
+  position:fixed;
+  left:50%;
+  transform:translateX(-50%);
+  bottom:calc(8px * var(--s));
+  width:calc(112px * var(--s));
+  height:calc(5px * var(--s));
+  background:#4f4f4f;
+  border-radius:99px;
+  z-index:120;
+}
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:calc(155px * var(--s));
+  transform:translateX(-50%) translateY(calc(18px * var(--s)));
+  min-width:calc(250px * var(--s));
+  max-width:calc(450px * var(--s));
+  padding:calc(14px * var(--s)) calc(20px * var(--s));
+  border-radius:calc(16px * var(--s));
+  background:rgba(0,83,54,.95);
+  color:#fff;
+  text-align:center;
+  font-size:calc(16px * var(--s));
+  font-weight:500;
+  opacity:0;
+  pointer-events:none;
+  transition:.2s ease;
+  z-index:150;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.is-pressed{transform:scale(.97);opacity:.75}
+@media(max-width:720px){body{background:var(--page)}}
+</style>
+</head>
+<body>
+<main class="phone">
+  <section class="profile-hero">
+    <div class="avatar">
+      <svg viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="22" r="12" fill="#999"/>
+        <path d="M12 56c3-13 11-20 20-20s17 7 20 20" fill="#999"/>
+      </svg>
+    </div>
+    <div>
+      <div class="profile-name">SUFYAN TSAURY</div>
+      <div class="profile-nim">NIM: 2530311086</div>
+      <span class="active-badge">Aktif</span>
+    </div>
+  </section>
+
+  <section class="info-card card">
+    <h2>Informasi Mahasiswa</h2>
+    <div class="info-row-profile"><span class="info-icon"><svg viewBox="0 0 64 64" fill="none"><path d="M12 54h40M16 14h24v40H16V14Zm24 16h10v24H40V30Z" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/><path d="M24 24h3M33 24h3M24 34h3M33 34h3M24 44h3M33 44h3" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg></span><div><div class="info-label">Fakultas</div><div class="info-value">SYARIAH</div></div></div>
+    <div class="info-row-profile"><span class="info-icon"><svg viewBox="0 0 64 64"><path d="M32 10 6 23l26 13 26-13L32 10Z" fill="currentColor"/><path d="M16 31v12c4 5 10 8 16 8s12-3 16-8V31l-16 8-16-8Z" fill="currentColor" opacity=".78"/></svg></span><div><div class="info-label">Program Studi</div><div class="info-value">S1 - HUKUM KELUARGA (AKHWAL SYAKSIYAH) (S1)</div></div></div>
+    <div class="info-row-profile"><span class="info-icon"><svg viewBox="0 0 64 64" fill="none"><rect x="11" y="18" width="42" height="30" rx="5" fill="currentColor"/><path d="M14 22l18 14 18-14" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><div class="info-label">Email Pribadi</div><div class="info-value">sufyantsaury753@gmail.com</div></div></div>
+    <div class="info-row-profile"><span class="info-icon"><svg viewBox="0 0 64 64" fill="none"><rect x="11" y="18" width="42" height="30" rx="5" fill="currentColor"/><path d="M14 22l18 14 18-14" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><div class="info-label">Email Kampus</div><div class="info-value">-</div></div></div>
+    <div class="info-row-profile"><span class="info-icon"><svg viewBox="0 0 64 64" fill="none"><path d="M20 12 12 16c1 19 17 35 36 36l4-8-12-7-5 6c-7-3-11-7-14-14l6-5-7-12Z" fill="currentColor"/></svg></span><div><div class="info-label">No. Telepon</div><div class="info-value">081214305925</div></div></div>
+    <div class="info-row-profile"><span class="info-icon"><svg viewBox="0 0 64 64" fill="none"><path d="M32 58s18-17 18-32c0-10-8-18-18-18S14 16 14 26c0 15 18 32 18 32Z" fill="currentColor"/><circle cx="32" cy="26" r="6" fill="#fff"/></svg></span><div><div class="info-label">Alamat</div><div class="info-value">Dusun Citepus Sirnasari Kec. Jatinunggal Kab. Sumedang</div></div></div>
+  </section>
+
+  <section class="advisor-card card">
+    <h2>Dosen Pembimbing Akademik</h2>
+    <div class="advisor-row">
+      <div class="advisor-person"><span class="info-icon"><svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="22" r="12" fill="currentColor"/><path d="M12 56c3-13 11-20 20-20s17 7 20 20" fill="currentColor"/></svg></span><span>KUSDIYANA, M.S.I</span></div>
+      <button class="chat-btn" data-chat><svg viewBox="0 0 64 64" fill="none"><path d="M14 14h36v28H25L14 52V14Z" fill="currentColor"/><path d="M23 24h18M23 32h12" stroke="#fff" stroke-width="4" stroke-linecap="round"/></svg>Chat</button>
+    </div>
+  </section>
+
+  <section class="other-card card">
+    <h2>Lainnya</h2>
+    <div class="option-row">
+      <span class="info-icon"><svg viewBox="0 0 64 64"><path d="M20 48h24l-3-5V29c0-7-4-12-9-12s-9 5-9 12v14l-3 5Z" fill="currentColor"/><path d="M28 51c1 3 7 3 8 0" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><path d="M32 10v5" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg></span>
+      <div>
+        <div class="option-title">Notifikasi Jadwal Kuliah</div>
+        <div class="option-desc">Dapatkan pengingat 1 jam sebelum perkuliahan dimulai</div>
+        <button class="test-sound" data-test-sound><svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="21" stroke="currentColor" stroke-width="5"/><path d="M27 22v20l16-10-16-10Z" fill="currentColor"/></svg>Test Suara Notifikasi</button>
+      </div>
+      <button class="toggle" aria-label="Toggle notifikasi"><span></span></button>
+    </div>
+    <div class="option-row" data-logout style="cursor:pointer">
+      <span class="info-icon"><svg viewBox="0 0 64 64" fill="none"><path d="M28 15H14v34h14" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M35 22l10 10-10 10M24 32h21" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <div class="option-title">Keluar</div>
+      <span class="arrow-next"></span>
+    </div>
+  </section>
+
+  <nav class="bottom-nav">
+    <a class="nav-item home" href="index.html"><span class="bottom-icon"><svg viewBox="0 0 64 64" fill="none"><path d="M9 30 32 11l23 19v25H39V39H25v16H9V30Z" stroke="#56545f" stroke-width="5" stroke-linejoin="round"/></svg></span><span>Beranda</span></a>
+    <a class="nav-item news" href="berita.html"><span class="bottom-icon"><svg viewBox="0 0 64 64" fill="none"><rect x="16" y="12" width="34" height="42" stroke="#56545f" stroke-width="5"/><line x1="24" y1="24" x2="42" y2="24" stroke="#56545f" stroke-width="4"/><line x1="24" y1="34" x2="42" y2="34" stroke="#56545f" stroke-width="4"/><line x1="24" y1="44" x2="36" y2="44" stroke="#56545f" stroke-width="4"/></svg></span><span>Berita</span></a>
+    <a class="nav-item scan-link" href="scan.html"><span class="center-scan"><svg viewBox="0 0 64 64" fill="none"><rect x="22" y="20" width="20" height="24" rx="5" stroke="#00765F" stroke-width="5"/><circle cx="32" cy="32" r="6" fill="#00765F"/><path d="M13 22V13h9M42 13h9v9M51 42v9h-9M22 51h-9v-9" stroke="#00765F" stroke-width="5" stroke-linecap="round"/></svg></span></a>
+    <a class="nav-item calendar" href="kalender.html"><span class="bottom-icon"><svg viewBox="0 0 64 64" fill="none"><rect x="12" y="16" width="40" height="38" rx="4" stroke="currentColor" stroke-width="5"/><path d="M12 27h40M22 10v12M42 10v12" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><path d="M21 36h7M36 36h7M21 45h7M36 45h7" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></span><span>Kalender</span></a>
+    <a class="nav-item profile active" href="profil.html"><span class="bottom-icon"><svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="22" r="10" stroke="#56545f" stroke-width="5"/><path d="M14 55c2-11 9-17 18-17s16 6 18 17" stroke="#56545f" stroke-width="5" stroke-linecap="round"/></svg></span><span>Profil Saya</span></a>
+  </nav>
+  <div class="android-line"></div>
+</main>
+<div class="toast"></div>
+<script>
+function fitPhone(){
+  const scale = Math.min(window.innerWidth / 720, window.innerHeight / 1551, 1);
+  document.documentElement.style.setProperty('--s', scale.toFixed(5));
+}
+fitPhone();
+window.addEventListener('resize', fitPhone);
+
+function showToast(message){
+  const toast = document.querySelector('.toast');
+  toast.textContent = message;
+  toast.classList.add('show');
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(() => toast.classList.remove('show'), 1600);
+}
+
+document.querySelectorAll('.toggle').forEach((toggle)=>{
+  toggle.addEventListener('click',()=>{
+    toggle.classList.toggle('off');
+    showToast(toggle.classList.contains('off') ? 'Notifikasi jadwal kuliah nonaktif' : 'Notifikasi jadwal kuliah aktif');
+  });
+});
+
+document.querySelector('[data-test-sound]').addEventListener('click',()=>{
+  try{
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    const context = new AudioContext();
+    const oscillator = context.createOscillator();
+    const gain = context.createGain();
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(820, context.currentTime);
+    oscillator.frequency.setValueAtTime(980, context.currentTime + .13);
+    gain.gain.setValueAtTime(.0001, context.currentTime);
+    gain.gain.exponentialRampToValueAtTime(.16, context.currentTime + .02);
+    gain.gain.exponentialRampToValueAtTime(.0001, context.currentTime + .34);
+    oscillator.connect(gain);
+    gain.connect(context.destination);
+    oscillator.start();
+    oscillator.stop(context.currentTime + .35);
+    showToast('Suara notifikasi berhasil dites');
+  }catch(e){
+    showToast('Browser belum mengizinkan suara');
+  }
+});
+
+document.querySelector('[data-logout]').addEventListener('click',()=>{
+  showToast('Fitur keluar siap disambungkan ke sistem login');
+});
+
+document.querySelector('[data-chat]').addEventListener('click',()=>{
+  showToast('Fitur chat dosen pembimbing siap disambungkan');
+});
+</script>
+</body>
+</html>
