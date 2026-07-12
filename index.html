@@ -1,685 +1,539 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+<meta charset="UTF-8">
 
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#00613f">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="UIN SSC">
-  
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Beranda Mahasiswa - Revisi Mirip</title>
+<title>Dashboard Peserta</title>
+
 <style>
-:root { --s: 1; }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { min-height: 100%; }
-body {
-  background: #e8e8e8;
-  display: flex;
-  justify-content: center;
-  font-family: "Segoe UI", Arial, sans-serif;
-}
-.phone {
-  width: calc(720px * var(--s));
-  height: calc(1551px * var(--s));
-  position: relative;
-  overflow: hidden;
-  background: #f4f4f4;
-}
-.header {
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: calc(253px * var(--s));
-  background: #00613f;
-  border-bottom-left-radius: calc(44px * var(--s));
-  border-bottom-right-radius: calc(44px * var(--s));
-}
-.campus {
-  position: absolute;
-  top: calc(36px * var(--s));
-  left: calc(34px * var(--s));
-  display: flex;
-  align-items: center;
-  gap: calc(24px * var(--s));
-}
-.logo-img {
-  width: calc(70px * var(--s));
-  height: calc(70px * var(--s));
-  border-radius: 50%;
-  object-fit: cover;
-}
-.campus-text h3 {
-  color: #fff;
-  font-size: calc(21px * var(--s));
-  line-height: calc(30px * var(--s));
-  font-weight: 700;
-  letter-spacing: .1px;
-}
-.campus-text p {
-  color: rgba(255,255,255,.78);
-  font-size: calc(21px * var(--s));
-  line-height: calc(30px * var(--s));
-  font-weight: 650;
-}
-.profile-card {
-  position: absolute;
-  top: calc(172px * var(--s));
-  left: calc(34px * var(--s));
-  width: calc(652px * var(--s));
-  height: calc(144px * var(--s));
-  background: #fff;
-  border-radius: calc(22px * var(--s));
-  box-shadow: 0 calc(14px * var(--s)) calc(27px * var(--s)) rgba(0,0,0,.13);
-}
-.profile-name {
-  position: absolute;
-  top: calc(43px * var(--s));
-  left: calc(34px * var(--s));
-  color: #111;
-  font-size: calc(23px * var(--s));
-  line-height: calc(27px * var(--s));
-  font-weight: 500;
-  letter-spacing: .1px;
-}
-.profile-nim {
-  position: absolute;
-  top: calc(87px * var(--s));
-  left: calc(34px * var(--s));
-  color: #55585f;
-  font-size: calc(21px * var(--s));
-  line-height: calc(25px * var(--s));
-  font-weight: 400;
-}
-.active-badge {
-  position: absolute;
-  right: calc(34px * var(--s));
-  top: calc(49px * var(--s));
-  width: calc(80px * var(--s));
-  height: calc(48px * var(--s));
-  border-radius: calc(23px * var(--s));
-  background: #ff9800;
-  color: #fff;
-  display: grid;
-  place-items: center;
-  font-size: calc(18px * var(--s));
-  font-weight: 500;
-}
-.panel {
-  position: absolute;
-  left: calc(34px * var(--s));
-  width: calc(652px * var(--s));
-  background: #fff;
-  border-radius: calc(24px * var(--s));
-  box-shadow: 0 calc(8px * var(--s)) calc(22px * var(--s)) rgba(0,0,0,.055);
-}
-.schedule-panel {
-  top: calc(386px * var(--s));
-  height: calc(486px * var(--s));
-}
-.panel-title {
-  position: absolute;
-  top: calc(39px * var(--s));
-  left: calc(34px * var(--s));
-  font-size: calc(28px * var(--s));
-  line-height: calc(34px * var(--s));
-  font-weight: 700;
-  color: #111;
-}
-.see-all {
-  position: absolute;
-  top: calc(44px * var(--s));
-  right: calc(40px * var(--s));
-  display: flex;
-  align-items: center;
-  gap: calc(18px * var(--s));
-  color: #00613f;
-  font-size: calc(20px * var(--s));
-  line-height: calc(24px * var(--s));
-  font-weight: 600;
-}
-.arrow {
-  width: calc(12px * var(--s));
-  height: calc(12px * var(--s));
-  border-top: calc(3px * var(--s)) solid #00613f;
-  border-right: calc(3px * var(--s)) solid #00613f;
-  transform: rotate(45deg);
-}
-.schedule-item {
-  position: absolute;
-  left: calc(35px * var(--s));
-  width: calc(583px * var(--s));
-  height: calc(145px * var(--s));
-  border-radius: calc(19px * var(--s));
-  background: #e6f7e8;
-  border: calc(1px * var(--s)) solid #d2ecd5;
-}
-.schedule-item.one { top: calc(109px * var(--s)); }
-.schedule-item.two { top: calc(281px * var(--s)); }
-.schedule-icon {
-  position: absolute;
-  top: calc(29px * var(--s));
-  left: calc(28px * var(--s));
-  width: calc(85px * var(--s));
-  height: calc(85px * var(--s));
-  border-radius: calc(18px * var(--s));
-  background: #cfebd3;
-  display: grid;
-  place-items: center;
-}
-.schedule-icon svg { width: calc(44px * var(--s)); height: calc(44px * var(--s)); }
-.schedule-title {
-  position: absolute;
-  top: calc(31px * var(--s));
-  left: calc(139px * var(--s));
-  width: calc(410px * var(--s));
-  font-size: calc(25px * var(--s));
-  line-height: calc(32px * var(--s));
-  font-weight: 700;
-  color: #0c0c0c;
-}
-.meta {
-  position: absolute;
-  left: calc(139px * var(--s));
-  display: flex;
-  align-items: center;
-  gap: calc(10px * var(--s));
-  color: #4f5560;
-  font-size: calc(18px * var(--s));
-  line-height: calc(23px * var(--s));
-  font-weight: 500;
-}
-.meta.time { top: calc(67px * var(--s)); }
-.meta.place { top: calc(96px * var(--s)); }
-.schedule-item.two .schedule-title { top: calc(29px * var(--s)); }
-.schedule-item.two .meta.time { top: calc(78px * var(--s)); }
-.schedule-item.two .meta.place { top: calc(107px * var(--s)); }
-.meta svg { width: calc(22px * var(--s)); height: calc(22px * var(--s)); flex: 0 0 auto; }
-.quick-panel {
-  top: calc(907px * var(--s));
-  height: calc(504px * var(--s));
-}
-.quick-panel .panel-title { top: calc(39px * var(--s)); }
-.quick-grid {
-  position: absolute;
-  top: calc(136px * var(--s));
-  left: calc(60px * var(--s));
-  right: calc(60px * var(--s));
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  row-gap: calc(66px * var(--s));
-  column-gap: calc(50px * var(--s));
-}
-.quick-item { text-align: center; color: #111; text-decoration: none; }
-.quick-icon {
-  width: calc(90px * var(--s));
-  height: calc(90px * var(--s));
-  border-radius: 50%;
-  margin: 0 auto calc(18px * var(--s));
-  display: grid;
-  place-items: center;
-}
-.quick-icon.blue { background: #d8f3f1; }
-.quick-icon.yellow { background: #fff0d8; }
-.quick-icon svg { width: calc(58px * var(--s)); height: calc(58px * var(--s)); }
-.quick-item p {
-  font-size: calc(16px * var(--s));
-  line-height: calc(20px * var(--s));
-  font-weight: 500;
-  color: #111;
-}
-.bottom-nav {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: calc(144px * var(--s));
-  background: #f5eefc;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  align-items: end;
-  padding-bottom: calc(20px * var(--s));
-  box-shadow: 0 calc(-4px * var(--s)) calc(16px * var(--s)) rgba(0,0,0,.05);
-}
-.nav-item {
-  height: calc(88px * var(--s));
-  text-align: center;
-  color: #50505a;
-  font-size: calc(16px * var(--s));
-  line-height: calc(21px * var(--s));
-  font-weight: 500;
-}
-.nav-item svg { width: calc(40px * var(--s)); height: calc(40px * var(--s)); margin-bottom: calc(9px * var(--s)); }
-.nav-item.active { color: #00765f; font-weight: 600; }
-.nav-item.home svg path { fill: #c69a21; }
-.center-scan {
-  position: absolute;
-  left: 50%;
-  top: calc(-25px * var(--s));
-  transform: translateX(-50%);
-  width: calc(87px * var(--s));
-  height: calc(87px * var(--s));
-  border-radius: 50%;
-  background: #fafffb;
-  display: grid;
-  place-items: center;
-  box-shadow: 0 calc(8px * var(--s)) calc(22px * var(--s)) rgba(0,0,0,.12);
-}
-.center-scan svg { width: calc(45px * var(--s)); height: calc(45px * var(--s)); }
-.nav-item.scan-space { position: relative; }
-.android-line {
-  position: absolute;
-  left: 50%;
-  bottom: calc(7px * var(--s));
-  transform: translateX(-50%);
-  width: calc(112px * var(--s));
-  height: calc(5px * var(--s));
-  background: #4b4b4b;
-  border-radius: calc(20px * var(--s));
-}
-.green-fill { fill: #23863f; }
-.gold-fill { fill: #c69a21; }
-.dark-stroke { stroke: #4c4c55; }
-@media (max-width: 720px) { body { background:#f4f4f4; } }
 
-.quick-item,
-.nav-item,
-.see-all {
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-}
-.quick-item.is-pressed,
-.nav-item.is-pressed,
-.see-all.is-pressed {
-  transform: scale(.96);
-  opacity: .75;
-  transition: .12s ease;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-.more-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, .18);
-  z-index: 200;
-  opacity: 0;
-  pointer-events: none;
-  transition: .25s ease;
+body{
+    min-height:100vh;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#0c1628;
+    color:white;
 }
 
-.more-overlay.show {
-  opacity: 1;
-  pointer-events: auto;
+
+/* NAVBAR */
+
+.navbar{
+    width:100%;
+    background:#1a2a40;
+    border-bottom:1px solid #293a52;
 }
 
-.more-sheet {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: calc(610px * var(--s));
-  background: #fff;
-  border-top-left-radius: calc(38px * var(--s));
-  border-top-right-radius: calc(38px * var(--s));
-  transform: translateY(100%);
-  transition: .28s ease;
-  padding: calc(28px * var(--s)) calc(34px * var(--s)) calc(70px * var(--s));
+.navbar-container{
+    height:105px;
+    padding:20px 40px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 }
 
-.more-overlay.show .more-sheet {
-  transform: translateY(0);
+
+.brand{
+    color:#12d8a0;
+    font-size:30px;
+    font-weight:bold;
 }
 
-.sheet-handle {
-  width: calc(68px * var(--s));
-  height: calc(7px * var(--s));
-  background: #dedede;
-  border-radius: calc(20px * var(--s));
-  margin: 0 auto calc(35px * var(--s));
+
+.logout-button{
+
+    background:#ff0057;
+    color:white;
+
+    padding:16px 25px;
+
+    border-radius:15px;
+
+    font-size:20px;
+    font-weight:bold;
+
+    text-decoration:none;
+
+    transition:.3s;
 }
 
-.more-title {
-  text-align: center;
-  font-size: calc(25px * var(--s));
-  line-height: calc(31px * var(--s));
-  font-weight: 700;
-  color: #1a1a1a;
-  margin-bottom: calc(70px * var(--s));
+
+.logout-button:hover{
+    background:#d90048;
 }
 
-.more-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  row-gap: calc(78px * var(--s));
-  column-gap: calc(20px * var(--s));
+
+/* CONTAINER */
+
+.dashboard-container{
+
+    max-width:700px;
+
+    margin:90px auto;
+
+    padding:0 40px;
+
 }
 
-.more-item {
-  text-align: center;
-  color: #111;
-  text-decoration: none;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+
+/* CARD */
+
+.dashboard-card{
+
+    background:#1b2a40;
+
+    border:1px solid #2b405c;
+
+    border-radius:20px;
+
+    padding:40px;
+
+    box-shadow:0 15px 30px rgba(0,0,0,.15);
+
 }
 
-.more-icon {
-  width: calc(88px * var(--s));
-  height: calc(88px * var(--s));
-  border-radius: 50%;
-  margin: 0 auto calc(18px * var(--s));
-  display: grid;
-  place-items: center;
+
+/* WELCOME */
+
+.welcome-row{
+
+    display:flex;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:15px;
+
 }
 
-.more-icon.blue {
-  background: #d8f3f1;
+
+.welcome-row h1{
+
+    font-size:31px;
+
 }
 
-.more-icon.yellow {
-  background: #fff0d8;
+
+.edit-button{
+
+    background:#354962;
+
+    border:1px solid #506580;
+
+    color:white;
+
+    padding:10px 14px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
 }
 
-.more-icon svg {
-  width: calc(58px * var(--s));
-  height: calc(58px * var(--s));
+
+.edit-button:hover{
+
+    background:#425a77;
+
 }
 
-.more-item p {
-  font-size: calc(17px * var(--s));
-  line-height: calc(22px * var(--s));
-  font-weight: 500;
-  color: #111;
+
+
+.participant-information{
+
+    margin-top:20px;
+
+}
+
+
+
+.participant-information p{
+
+    color:#a6b0c0;
+
+    font-size:20px;
+
+    line-height:1.6;
+
+}
+
+
+.region-text{
+
+    color:#08bfff;
+
+    font-weight:bold;
+
+}
+
+
+.location-text{
+
+    color:#04d49a;
+
+    font-weight:bold;
+
+}
+
+
+
+/* UPLOAD */
+
+.upload-card{
+
+    margin-top:40px;
+
+}
+
+
+.upload-card h2{
+
+    font-size:30px;
+
+}
+
+
+
+.card-divider{
+
+    height:1px;
+
+    background:#34465f;
+
+    margin:20px 0 30px;
+
+}
+
+
+
+.upload-notice{
+
+    background:#363638;
+
+    border:1px solid #63572d;
+
+    border-radius:18px;
+
+    padding:30px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+
+
+.notice-icon{
+
+    font-size:35px;
+
+}
+
+
+.notice-content h3{
+
+    color:#ffc400;
+
+    font-size:22px;
+
+    margin-bottom:10px;
+
+}
+
+
+.notice-content p{
+
+    color:#a5acba;
+
+    font-size:18px;
+
+    line-height:1.5;
+
+}
+
+
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+
+.navbar-container{
+
+    height:85px;
+
+    padding:15px 20px;
+
+}
+
+
+
+.brand{
+
+    font-size:20px;
+
+}
+
+
+
+.logout-button{
+
+    padding:12px 18px;
+
+    font-size:15px;
+
+}
+
+
+
+.dashboard-container{
+
+    margin-top:55px;
+
+    padding:0 20px;
+
+}
+
+
+
+.dashboard-card{
+
+    padding:25px 22px;
+
+}
+
+
+
+.welcome-row h1{
+
+    font-size:24px;
+
+}
+
+
+
+.participant-information p{
+
+    font-size:16px;
+
+}
+
+
+
+.upload-card h2{
+
+    font-size:23px;
+
+}
+
+
+
+.upload-notice{
+
+    padding:20px;
+
+}
+
+
+
+.notice-content h3{
+
+    font-size:17px;
+
+}
+
+
+
+.notice-content p{
+
+    font-size:15px;
+
+}
+
+
 }
 
 </style>
+
 </head>
+
+
 <body>
-  <main class="phone">
-    <section class="header">
-      <div class="campus">
-        <img class="logo-img" alt="UINSSC" src="data:image/png;base64,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" />
-        <div class="campus-text">
-          <h3>Universitas Islam Negeri Siber</h3>
-          <p>Syekh Nurjati Cirebon</p>
-        </div>
-      </div>
-    </section>
 
-    <section class="profile-card">
-      <div class="profile-name">SUFYAN TSAURY</div>
-      <div class="profile-nim">NIM: 2530311086</div>
-      <div class="active-badge">Aktif</div>
-    </section>
 
-    <section class="panel schedule-panel">
-      <h2 class="panel-title">Jadwal Kuliah</h2>
-      <div class="see-all"><span>Lihat Semua</span><span class="arrow"></span></div>
+<header class="navbar">
 
-      <article class="schedule-item one">
-        <div class="schedule-icon">
-          <svg viewBox="0 0 64 64" aria-hidden="true">
-            <path class="green-fill" d="M32 12 6 25l26 13 26-13L32 12Z"/>
-            <path class="green-fill" d="M15 32v12c4 5 10 8 17 8s13-3 17-8V32l-17 8-17-8Z"/>
-          </svg>
-        </div>
-        <h3 class="schedule-title">Metodologi Studi Islam</h3>
-        <div class="meta time">
-          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#4f5560" stroke-width="2"/><path d="M12 7v5l4 2" stroke="#4f5560" stroke-width="2" stroke-linecap="round"/></svg>
-          <span>07:30 - 10:00</span>
-        </div>
-        <div class="meta place">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M12 22S5.5 15.8 5.5 10.2C5.5 6.4 8.4 3.5 12 3.5s6.5 2.9 6.5 6.7C18.5 15.8 12 22 12 22Z" fill="#4f5560"/><circle cx="12" cy="10.2" r="2.4" fill="#e6f7e8"/></svg>
-          <span>Gedung I (Nurjati Mart Lantai 2) - I.202</span>
-        </div>
-      </article>
+<div class="navbar-container">
 
-      <article class="schedule-item two">
-        <div class="schedule-icon">
-          <svg viewBox="0 0 64 64" aria-hidden="true">
-            <path class="green-fill" d="M32 12 6 25l26 13 26-13L32 12Z"/>
-            <path class="green-fill" d="M15 32v12c4 5 10 8 17 8s13-3 17-8V32l-17 8-17-8Z"/>
-          </svg>
-        </div>
-        <h3 class="schedule-title">Teologi dan Etika Islam</h3>
-        <div class="meta time">
-          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#4f5560" stroke-width="2"/><path d="M12 7v5l4 2" stroke="#4f5560" stroke-width="2" stroke-linecap="round"/></svg>
-          <span>10:00 - 12:30</span>
-        </div>
-        <div class="meta place">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M12 22S5.5 15.8 5.5 10.2C5.5 6.4 8.4 3.5 12 3.5s6.5 2.9 6.5 6.7C18.5 15.8 12 22 12 22Z" fill="#4f5560"/><circle cx="12" cy="10.2" r="2.4" fill="#e6f7e8"/></svg>
-          <span>Gedung G - G 202</span>
-        </div>
-      </article>
-    </section>
 
-    <section class="panel quick-panel">
-      <h2 class="panel-title">Akses Cepat</h2>
-      <div class="quick-grid">
-        <a class="quick-item" href="#">
-          <div class="quick-icon blue">
-            <svg viewBox="0 0 64 64"><rect x="12" y="7" width="31" height="50" rx="4" fill="#00765F"/><rect x="18" y="17" width="19" height="4" fill="#fff"/><rect x="18" y="27" width="17" height="4" fill="#fff"/><rect x="18" y="37" width="14" height="4" fill="#fff"/><path d="M39 47 54 32l4 4-15 15-7 2 3-6Z" fill="#c69a21"/></svg>
-          </div><p>Rencana Studi</p>
-        </a>
-        <a class="quick-item" href="#">
-          <div class="quick-icon yellow">
-            <svg viewBox="0 0 64 64"><rect x="12" y="15" width="40" height="40" rx="5" fill="#00765F"/><rect x="21" y="8" width="22" height="13" rx="3" fill="#c69a21"/><rect x="19" y="30" width="7" height="7" fill="#fff"/><rect x="31" y="30" width="14" height="4" fill="#fff"/><rect x="19" y="42" width="7" height="7" fill="#fff"/><rect x="31" y="42" width="14" height="4" fill="#fff"/></svg>
-          </div><p>Kehadiran</p>
-        </a>
-        <a class="quick-item" href="khs.html">
-          <div class="quick-icon blue">
-            <svg viewBox="0 0 64 64"><rect x="11" y="18" width="22" height="34" rx="2" fill="#a06622"/><rect x="16" y="25" width="11" height="3" fill="#fff"/><rect x="16" y="34" width="11" height="3" fill="#fff"/><rect x="32" y="10" width="22" height="34" rx="2" fill="#00765F"/><text x="37" y="28" font-size="15" font-weight="900" fill="#fff">A</text><text x="44" y="38" font-size="15" font-weight="900" fill="#fff">B</text></svg>
-          </div><p>Riwayat Nilai</p>
-        </a>
-        <a class="quick-item" href="#">
-          <div class="quick-icon yellow">
-            <svg viewBox="0 0 64 64"><rect x="9" y="18" width="46" height="34" rx="5" fill="#c69a21"/><path d="M15 18 47 10l4 10H15Z" fill="#00765F"/><rect x="37" y="32" width="18" height="12" rx="3" fill="#fff"/></svg>
-          </div><p>Pembayaran</p>
-        </a>
-        <a class="quick-item" href="#">
-          <div class="quick-icon blue">
-            <svg viewBox="0 0 64 64"><path d="M10 22 32 8l22 14v29H10V22Z" fill="#00765F"/><path d="m13 25 19 13 19-13" stroke="#fff" stroke-width="4" fill="none"/><circle cx="39" cy="27" r="10" fill="#fff"/><text x="32" y="32" font-size="15" font-weight="900" fill="#00765F">@</text></svg>
-          </div><p>Email Kampus</p>
-        </a>
-        <a class="quick-item" href="#">
-          <div class="quick-icon yellow">
-            <svg viewBox="0 0 64 64"><rect x="12" y="12" width="13" height="13" rx="3" fill="#c69a21"/><rect x="33" y="12" width="13" height="13" rx="3" fill="#c69a21"/><rect x="12" y="33" width="13" height="13" rx="3" fill="#c69a21"/><path d="m39 34 11 6-11 6-11-6 11-6Z" fill="#00765F"/></svg>
-          </div><p>Lainnya</p>
-        </a>
-      </div>
-    </section>
-
-    <div class="more-overlay" id="moreOverlay">
-  <div class="more-sheet" id="moreSheet">
-    <div class="sheet-handle"></div>
-
-    <h2 class="more-title">Menu Lainnya</h2>
-
-    <div class="more-grid">
-      <a class="more-item" href="#">
-        <div class="more-icon blue">
-          <svg viewBox="0 0 64 64">
-            <rect x="14" y="15" width="36" height="34" rx="4" fill="#c69a21"/>
-            <path d="M32 11 18 18l14 7 14-7-14-7Z" fill="#00765F"/>
-            <path d="M24 29c3 4 13 4 16 0v8c-3 4-13 4-16 0v-8Z" fill="#00765F"/>
-            <path d="M21 46c2-7 7-10 11-10s9 3 11 10" fill="#00765F"/>
-          </svg>
-        </div>
-        <p>eWisuda</p>
-      </a>
-
-      <a class="more-item" href="#">
-        <div class="more-icon yellow">
-          <svg viewBox="0 0 64 64">
-            <path d="M32 11 7 23l25 12 25-12-25-12Z" fill="#00765F"/>
-            <path d="M16 30v11c4 5 10 8 16 8s12-3 16-8V30l-16 8-16-8Z" fill="#c69a21"/>
-            <path d="M51 25v15" stroke="#00765F" stroke-width="5" stroke-linecap="round"/>
-            <circle cx="51" cy="45" r="6" fill="#c69a21"/>
-            <text x="47" y="49" font-size="10" font-weight="900" fill="#fff">Rp</text>
-          </svg>
-        </div>
-        <p>eBeasiswa</p>
-      </a>
-
-      <a class="more-item" href="#">
-        <div class="more-icon blue">
-          <svg viewBox="0 0 64 64">
-            <path d="M15 34c0-12 7-21 17-21s17 9 17 21" stroke="#00765F" stroke-width="6" fill="none" stroke-linecap="round"/>
-            <rect x="10" y="31" width="11" height="16" rx="5" fill="#00765F"/>
-            <rect x="43" y="31" width="11" height="16" rx="5" fill="#00765F"/>
-            <path d="M23 31c2-6 7-9 13-7 6 2 9 7 8 13-1 7-7 12-14 11" fill="#c69a21"/>
-            <circle cx="28" cy="36" r="2" fill="#fff"/>
-            <circle cx="36" cy="36" r="2" fill="#fff"/>
-            <path d="M49 46c-2 5-6 7-12 7" stroke="#00765F" stroke-width="5" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <p>HelpDesk</p>
-      </a>
-
-      <a class="more-item" href="#">
-        <div class="more-icon yellow">
-          <svg viewBox="0 0 64 64">
-            <rect x="18" y="14" width="34" height="28" rx="4" fill="#c69a21"/>
-            <rect x="22" y="19" width="18" height="4" fill="#fff"/>
-            <rect x="22" y="27" width="24" height="4" fill="#fff"/>
-            <circle cx="21" cy="44" r="8" fill="#00765F"/>
-            <path d="M8 55c2-8 8-12 13-12s11 4 13 12" fill="#00765F"/>
-          </svg>
-        </div>
-        <p>Resert Password Portal</p>
-      </a>
-
-      <a class="more-item" href="#">
-        <div class="more-icon blue">
-          <svg viewBox="0 0 64 64">
-            <rect x="21" y="19" width="22" height="26" rx="3" fill="#c69a21"/>
-            <path d="M14 22v-8h8M42 14h8v8M50 42v8h-8M22 50h-8v-8" stroke="#00765F" stroke-width="5" stroke-linecap="round"/>
-            <path d="M25 24h4v4h-4zM35 24h4v4h-4zM25 34h4v4h-4zM35 34h4v4h-4z" fill="#fff"/>
-          </svg>
-        </div>
-        <p>Checkin Perpus</p>
-      </a>
-
-      <a class="more-item" href="#">
-        <div class="more-icon yellow">
-          <svg viewBox="0 0 64 64">
-            <path d="M13 14c8-4 15-4 22 0v35c-7-4-14-4-22 0V14Z" fill="#c69a21"/>
-            <path d="M35 14c6-3 11-3 16 0v31c-5-3-10-3-16 0V14Z" fill="#c69a21" opacity=".85"/>
-            <path d="M19 22h10M19 29h10M40 22h7M40 29h7" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
-            <circle cx="45" cy="43" r="11" fill="#e6f7e8" stroke="#00765F" stroke-width="4"/>
-            <path d="M45 37v7l5 3" stroke="#00765F" stroke-width="3" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <p>Riwayat Peminjaman Buku</p>
-      </a>
-    </div>
-  </div>
+<div class="brand">
+    Portal Rashdul Qiblat
 </div>
 
-    <nav class="bottom-nav">
-      <div class="nav-item home active"><svg viewBox="0 0 64 64"><path d="M8 30 32 10l24 20v26H39V39H25v17H8V30Z"/></svg><div>Beranda</div></div>
-      <div class="nav-item"><svg viewBox="0 0 64 64" fill="none"><rect x="16" y="12" width="34" height="42" stroke="#4c4c55" stroke-width="5"/><line x1="23" y1="24" x2="43" y2="24" stroke="#4c4c55" stroke-width="4"/><line x1="23" y1="34" x2="43" y2="34" stroke="#4c4c55" stroke-width="4"/><line x1="23" y1="44" x2="36" y2="44" stroke="#4c4c55" stroke-width="4"/></svg><div>Berita</div></div>
-      <div class="nav-item scan-space"><div class="center-scan"><svg viewBox="0 0 64 64" fill="none"><rect x="21" y="19" width="22" height="26" rx="5" stroke="#00765F" stroke-width="5"/><circle cx="32" cy="31" r="6" fill="#00765F"/><path d="M13 22v-9h9M42 13h9v9M51 42v9h-9M22 51h-9v-9" stroke="#00765F" stroke-width="5" stroke-linecap="round"/></svg></div></div>
-      <div class="nav-item"><svg viewBox="0 0 64 64" fill="none"><rect x="13" y="18" width="38" height="34" rx="4" stroke="#4c4c55" stroke-width="5"/><line x1="13" y1="28" x2="51" y2="28" stroke="#4c4c55" stroke-width="5"/><line x1="23" y1="11" x2="23" y2="22" stroke="#4c4c55" stroke-width="5"/><line x1="41" y1="11" x2="41" y2="22" stroke="#4c4c55" stroke-width="5"/></svg><div>Kalender</div></div>
-      <div class="nav-item"><svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="22" r="10" stroke="#4c4c55" stroke-width="5"/><path d="M14 55c2-11 9-17 18-17s16 6 18 17" stroke="#4c4c55" stroke-width="5" stroke-linecap="round"/></svg><div>Profil Saya</div></div>
-    </nav>
-    <div class="android-line"></div>
-  </main>
+
+<a class="logout-button" href="#">
+    Keluar
+</a>
+
+
+</div>
+
+</header>
+
+
+
+<main class="dashboard-container">
+
+
+<section class="dashboard-card">
+
+
+<div class="welcome-row">
+
+
+<h1>
+Selamat Datang,
+<span id="nama">
+Firman
+</span>
+</h1>
+
+
+<button class="edit-button" onclick="ubahNama()">
+
+✏️ Edit Nama
+
+</button>
+
+
+</div>
+
+
+
+<div class="participant-information">
+
+
+<p>
+Wilayah:
+<span class="region-text">
+Sumedang, Prov. Jawa Barat
+</span>
+</p>
+
+
+<p>
+
+Detail Tempat Pemantauan:
+
+<span class="location-text">
+
+[Masjid] Al Hasan - Dusun Citepus RT 02 RW 04,
+Jatinunggal, Jatinunggal, Sumedang, Jawa Barat
+
+</span>
+
+</p>
+
+
+</div>
+
+
+</section>
+
+
+
+
+<section class="dashboard-card upload-card">
+
+
+<h2>
+Input Bukti Pengamatan
+</h2>
+
+
+<div class="card-divider"></div>
+
+
+
+<div class="upload-notice">
+
+
+<div class="notice-icon">
+⏳
+</div>
+
+
+<div class="notice-content">
+
+
+<h3>
+Proses Unggah Belum Dibuka
+</h3>
+
+
+<p>
+Saat ini proses unggah bukti belum dibuka,
+unggah bukti akan dibuka pada tanggal
+15 Juli 2026.
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+</section>
+
+
+</main>
+
+
+
+
 <script>
-function fitPhone() {
-  const s = Math.min(window.innerWidth / 720, window.innerHeight / 1551, 1);
-  document.documentElement.style.setProperty('--s', s.toFixed(5));
+
+
+function ubahNama(){
+
+let namaLama=document.getElementById("nama").innerHTML.trim();
+
+
+let namaBaru=prompt(
+"Masukkan nama peserta:",
+namaLama
+);
+
+
+
+if(namaBaru!==null && namaBaru.trim()!==""){
+
+document.getElementById("nama").innerHTML=
+namaBaru;
+
 }
 
-window.addEventListener('resize', fitPhone);
-fitPhone();
-
-const routes = {
-  'Rencana Studi': 'rencana-studi.html',
-  'Kehadiran': 'kehadiran.html',
-  'Riwayat Nilai': 'khs.html',
-  'Pembayaran': 'pembayaran.html',
-  'Email Kampus': 'email-kampus.html',
-  'Beranda': 'index.html',
-  'Berita': 'berita.html',
-  'Kalender': 'kalender.html',
-  'Profil Saya': 'profil.html'
-};
-
-function openPage(url, element) {
-  if (!url || url === '#') return;
-  element.classList.add('is-pressed');
-  setTimeout(() => {
-    window.location.href = url;
-  }, 120);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  const moreOverlay = document.getElementById('moreOverlay');
-const moreSheet = document.getElementById('moreSheet');
 
-function openMoreMenu() {
-  moreOverlay.classList.add('show');
-}
-
-function closeMoreMenu() {
-  moreOverlay.classList.remove('show');
-}
-
-document.querySelectorAll('.quick-item').forEach((item) => {
-  const labelElement = item.querySelector('p');
-  const label = labelElement ? labelElement.textContent.trim() : '';
-
-  if (label === 'Lainnya') {
-    item.setAttribute('href', '#');
-    item.addEventListener('click', (event) => {
-      event.preventDefault();
-      openMoreMenu();
-    });
-    return;
-  }
-
-  const url = routes[label];
-
-  if (url) {
-    item.setAttribute('href', url);
-    item.dataset.url = url;
-  }
-
-  item.addEventListener('click', (event) => {
-    event.preventDefault();
-    openPage(item.dataset.url || item.getAttribute('href'), item);
-  });
-});
-
-moreOverlay.addEventListener('click', closeMoreMenu);
-
-moreSheet.addEventListener('click', (event) => {
-  event.stopPropagation();
-});
-
-  const seeAll = document.querySelector('.see-all');
-  if (seeAll) {
-    seeAll.dataset.url = 'jadwal.html';
-    seeAll.addEventListener('click', () => openPage(seeAll.dataset.url, seeAll));
-  }
-
-  document.querySelectorAll('.bottom-nav .nav-item').forEach((item) => {
-    const label = item.textContent.trim();
-    const url = item.classList.contains('scan-space') ? 'scan.html' : routes[label];
-
-    item.dataset.url = url;
-    item.addEventListener('click', () => openPage(item.dataset.url, item));
-  });
-});
-
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./sw.js");
-  });
-}
-  
 </script>
+
+
+
 </body>
 </html>
